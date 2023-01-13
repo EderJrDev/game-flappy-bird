@@ -37,7 +37,7 @@ function ParDeBarreiras(altura, abertura, x) { // faz a altura do par de barreir
 
     this.getX = () => parseInt(this.elemento.style.left.split('px')[0]) // saber a posição que o par de barreira está 
     this.setX = x => this.elemento.style.left = `${x}px`
-    this.getLargura = () => this.elemento.clienteWidth
+    this.getLargura = () => this.elemento.clientWidth
 
     this.sortearAbertura()
     this.setX(x)
@@ -54,10 +54,12 @@ function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
         new ParDeBarreiras(altura, abertura, largura + espaco * 3),
     ]
 
-    const deslocamento = 3
+    const deslocamento = 10
     this.animar = () => {
         this.pares.forEach(par => {
             par.setX(par.getX() - deslocamento)
+
+            // console.log('posicao barreiras: ', par.getX(), par.getLargura())
 
             // quando o elemento sair da tela
             if (par.getX() < -par.getLargura()) {
@@ -73,42 +75,43 @@ function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
     }
 }
 
-// function Passaro(alturaJogo) { // o passaro será animado na posição Y
-//     let voando = false
+function Passaro(alturaJogo) { // o passaro será animado na posição Y
+    let voando = false
 
-//     this.elemento = novoElemento('img', 'passaro')
-//     this.elemento.src = 'imgs/passaro.png'
+    this.elemento = novoElemento('img', 'passaro')
+    this.elemento.src = 'imgs/passaro.png'
 
-//     this.getY = () => parseInt(this.elemento.style.botton.split('px')[0])
-//     this.setY = y => this.elemento.style.botton = `${y}px`
+    this.getY = () => parseInt(this.elemento.style.botton.split('px')[0])
+    this.setY = y => this.elemento.style.botton = `${y}px`
 
-//     window.onkeydown = e => voando = true // quando o usuario clicar em qualqer tecla, o voando recebera true
-//     window.onkeyup = e => voando = false
+    window.onkeydown = e => voando = true // quando o usuario clicar em qualqer tecla, o voando recebera true
+    window.onkeyup = e => voando = false
 
-//     this.animar = () => {
-//         const novoY = this.getY() + (voando ? 8 : -5) // quanto ele ganha e quanto perde de altura quando estiver voando
-//         const alturaMaxima = alturaJogo - this.elemento.clienteHeight
+    this.animar = () => {
+        const novoY = this.getY() + (voando ? 8 : -5) // quanto ele ganha e quanto perde de altura quando estiver voando
+        const alturaMaxima = alturaJogo - this.elemento.clientHeight
 
-//         if (novoY <= 0) {
-//             this.setY(0)
-//         } else if (novoY >= alturaMaxima) {
-//             this.setY(alturaMaxima)
-//         } else {
-//             this.setY(novoY)
-//         }
-//     }
+        if (novoY <= 0) {
+            this.setY(0)
+        } else if (novoY >= alturaMaxima) {
+            this.setY(alturaMaxima)
+        } else {
+            this.setY(novoY)
+        }
+    }
 
-//     this.setY(alturaJogo / 2)
+    this.setY(alturaJogo / 2)
 
-// }
+}
 
 const barreiras = new Barreiras(700, 1200, 200, 400)
-// const passaro = new Passaro(700)
+const passaro = new Passaro(700)
 const areaDoJogo = document.querySelector('[wm-flappy]')
 
-// areaDoJogo.appendChild(passaro.elemento)
+areaDoJogo.appendChild(passaro.elemento)
 barreiras.pares.forEach(par => areaDoJogo.appendChild(par.elemento))
 setInterval(() => {
     barreiras.animar()
-    // passaro.animar()
+    passaro.animar()
+    // console.log('animar');
 }, 20)
