@@ -46,7 +46,7 @@ function ParDeBarreiras(altura, abertura, x) { // faz a altura do par de barreir
 // const b  =  new ParDeBarreiras(700,200,400)
 // document.querySelector('[wm-flappy]').appendChild(b.elemento)
 
-function Barreiras(altura, largura, abertura, espaco) {
+function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
     this.pares = [ // aqui vai criar varios pares de barreiras
         new ParDeBarreiras(altura, abertura, largura),
         new ParDeBarreiras(altura, abertura, largura + espaco),
@@ -70,9 +70,12 @@ function Barreiras(altura, largura, abertura, espaco) {
             const meio = largura / 2
             const cruzouOMeio = par.getX() + deslocamento >= meio
                 && par.getX() < meio
-            // if (cruzouOMeio) notificarPonto()
+            if (cruzouOMeio) notificarPonto()
+            // console.log(cruzouOMeio);
         })
     }
+
+
 }
 
 function Passaro(alturaJogo) {
@@ -84,7 +87,7 @@ function Passaro(alturaJogo) {
     this.getY = () => parseInt(this.elemento.style.bottom.split('px')[0])
     this.setY = y => this.elemento.style.bottom = `${y}px`
 
-    console.log(this.elemento.style.bottom);
+    // console.log(this.elemento.style.bottom);
 
     document.addEventListener('keydown', e => {
         if (e.code === 'Space') {
@@ -99,12 +102,12 @@ function Passaro(alturaJogo) {
         }
     })
 
-    console.log(voando);
+    // console.log(voando);
 
     this.animar = () => {
         const novoY = this.getY() + (voando ? 8 : -5)
         const alturaMaxima = alturaJogo - this.elemento.clientHeight
-        console.log(alturaMaxima, 'altura maxima');
+        // console.log(alturaMaxima, 'altura maxima');
 
         if (novoY <= 0) {
             this.setY(0)
@@ -121,6 +124,7 @@ function Passaro(alturaJogo) {
 function Progresso() {
     this.elemento = novoElemento('span', 'progresso')
     this.atualizarPontos = pontos => {
+        // console.warn(pontos);
         this.elemento.innerHTML = pontos
     }
     this.atualizarPontos(0)
@@ -171,7 +175,7 @@ function FlappyBird() {
     const largura = areaDoJogo.clientWidth
 
     const progresso = new Progresso()
-    const barreiras = new Barreiras(altura, largura, 200, 400,
+    const barreiras = new Barreiras(altura, largura, 250, 400,
         () => progresso.atualizarPontos(++pontos))
 
     const passaro = new Passaro(altura)
