@@ -1,0 +1,72 @@
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 540px;
+  height: 490px;
+  background-color: rgba(49, 49, 49, 0.5);
+  overflow: auto;
+  border: 5px solid #A5E82E;
+}
+
+.modal-content {
+  background-color: transparent;
+  /* background-color: #fefefe; */
+  margin: 10% auto;
+  padding: 20px;
+  border: 3px solid #A5E82E;
+  width: 80%;
+  color: white;
+  justify-content: center;
+  text-align: center;
+}
+
+.pixel {
+  font-family: Pixel;
+  font-size: 50px;
+}
+
+.content {
+  font-family: Pixel;
+  font-size: 25px;
+}
+
+.animation {
+  animation: grow 1s infinite alternate ease-in-out;
+  cursor: pointer;
+}
+
+.move {
+  animation: mover 1s infinite alternate;
+}
+
+@keyframes grow {
+  0% {
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  100% {
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+}
+
+@keyframes mover {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
