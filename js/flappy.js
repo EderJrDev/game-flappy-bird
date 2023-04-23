@@ -54,15 +54,17 @@ function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
 
             // quando o elemento sair da tela
             if (par.getX() < -par.getLargura()) {
+                // par.setX(par.getX() + espaco * this.pares.length)
                 par.setX(par.getX() + espaco * this.pares.length)
+                notificarPonto();
                 par.sortearAbertura()
             }
 
             const meio = largura / 2
             const cruzouOMeio = par.getX() + deslocamento >= meio
-                && par.getX() < meio
+                && par.getX() < meio + deslocamento
             if (cruzouOMeio) notificarPonto()
-            // console.log(cruzouOMeio);
+            console.log(cruzouOMeio);
         })
     }
 }
@@ -108,7 +110,7 @@ function Passaro(alturaJogo) {
 function Progresso() {
     this.elemento = novoElemento('span', 'progresso')
     this.atualizarPontos = pontos => {
-        // console.warn(pontos);
+        console.warn(pontos);
         this.elemento.innerHTML = pontos
     }
     this.atualizarPontos(0)
@@ -146,7 +148,7 @@ function FlappyBird() {
     const largura = areaDoJogo.clientWidth
 
     const progresso = new Progresso()
-    const barreiras = new Barreiras(altura, largura, 230, 400,
+    const barreiras = new Barreiras(altura, largura, 220, 500,
         () => progresso.atualizarPontos(++pontos))
 
     const passaro = new Passaro(altura)
@@ -169,32 +171,9 @@ function FlappyBird() {
                 clearInterval(temporizador);
                 const body = document.querySelector('[wm-flappy]');
                 body.innerHTML = '';
-
             }
-
-        }, 20);
-
-        const reiniciarBotao = document.querySelector('#reiniciar');
-        reiniciarBotao.addEventListener('click', () => {
-            // reiniciar o jogo
-            // esconder a modal
-            const modal = document.querySelector('#modal');
-            modal.style.display = 'none';
-
-            new FlappyBird().start();
-
-        });
-    };
-
-    // Seleciona os elementos HTML
-    const openButton = document.getElementById("open-modal");
-    const modal = document.getElementById("modal");
-    const closeButton = document.querySelector(".close");
-
-    // Adiciona um ouvinte de eventos para o botão de fechar
-    closeButton.addEventListener("click", function () {
-        modal.style.display = "none";
-    });
+        }, 20)
+    }
 }
 
 document.getElementById("start-btn").addEventListener("click", function () {

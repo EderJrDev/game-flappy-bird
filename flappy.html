@@ -9,26 +9,30 @@
     <link rel="stylesheet" href="css/modal.css">
 </head>
 
-<body class="conteudo">
-    <h1>Flappy Bird</h1>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close"></span>
-            <img class="move" src="./imgs/passaro.png" width="60px" alt="passaro">
-            <p class="pixel">Pontuacao:
-                <span class="pixel" id="pontos">0</span>
-            </p>
-            <p class="content">Presione a tecla de Espaco <br> para controlar o Passaro</p>
-            <div class="animation">
-                <a id="start-btn">
-                    <span class="pixel">Jogar</span>
-                </a>
+<body>
+    <div class="conteudo">
+        <h1>Flappy Bird</h1>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <img class="move" src="./imgs/passaro.png" width="60px" alt="passaro">
+                <p class="pixel">Pontuacao:
+                    <span class="pixel" id="pontos">0</span>
+                </p>
+                <p class="content">
+                    Presione a tecla de Espaco
+                    <br>
+                    para controlar o Passaro
+                </p>
+                <div class="animation">
+                    <a id="start-btn">
+                        <span class="pixel">Jogar</span>
+                    </a>
+                </div>
+                <div id="modal" style="display: none;"></div>
             </div>
-            <div id="modal" style="display: none;"></div>
         </div>
+        <div wm-flappy></div>
     </div>
-    <div wm-flappy></div>
-
     <script src="js/flappy.js"></script>
 </body>
 
